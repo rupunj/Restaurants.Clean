@@ -9,10 +9,12 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.5" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.0"/>
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Restaurants.Clean.Application\Restaurants.Clean.Application.csproj" />
+    <ProjectReference Include="..\Restaurants.Clean.Infrastructure\Restaurants.Clean.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>
