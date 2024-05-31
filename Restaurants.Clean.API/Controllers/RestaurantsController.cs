@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
 namespace Restaurants.Clean.API;
+[Route("api/[controller]")]
 [ApiController]
-[Route("api/Restaurants")]
 public class RestaurantsController:ControllerBase
 {
     [HttpGet]
