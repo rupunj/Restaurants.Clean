@@ -1,4 +1,5 @@
 using Restaurants.Clean.Infrastructure;
+using Restaurants.Clean.Application;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -8,6 +9,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.InfrastructureServices(builder.Configuration);
+builder.Services.ApplicationService();
 
 
 
