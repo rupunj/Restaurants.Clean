@@ -7,10 +7,10 @@ public static class ServiceCollection
 {
     public static void ApplicationService(this IServiceCollection services)
     {
-        var AssemblyService = typeof(RestaurantsService).Assembly;
-        services.AddScoped<IRestaurantService,RestaurantsService>();
+        var AssemblyService = typeof(ServiceCollection).Assembly;
         services.AddAutoMapper(AssemblyService);
         services.AddValidatorsFromAssembly(AssemblyService).AddFluentValidationAutoValidation();
+        services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(AssemblyService));
 
     }
 

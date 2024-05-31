@@ -1,6 +1,7 @@
-﻿namespace Restaurants.Clean.Application;
+﻿using MediatR;
+namespace Restaurants.Clean.Application;
 
-public class CreateResturantDto
+public class CreateRestaurantCommand :IRequest<int>
 {
     public int Id { get; set; }
     public string Name { get; set; } =default!;
@@ -14,3 +15,4 @@ public class CreateResturantDto
     public string? PostalCode { get; set; } 
 
 }
+ 
