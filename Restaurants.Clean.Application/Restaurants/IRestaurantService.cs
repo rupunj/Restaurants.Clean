@@ -4,6 +4,7 @@ namespace Restaurants.Clean.Application;
 
 public interface IRestaurantService
 {
-    Task<IEnumerable<Restaurant>> GetAllRestaurants();
+    Task<IEnumerable<RestaurantsDto>> GetAllRestaurants();
+    Task<RestaurantsDto> GetRestaurant(int Id);
 
 }

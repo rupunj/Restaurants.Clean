@@ -7,6 +7,7 @@ public static class ServiceCollection
     public static void ApplicationService(this IServiceCollection services)
     {
         services.AddScoped<IRestaurantService,RestaurantsService>();
+        services.AddAutoMapper(typeof(RestaurantsService).Assembly);
 
     }
 
