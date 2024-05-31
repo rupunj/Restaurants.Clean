@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Restaurants.Clean.Domain;
-using Restaurants.Clean.Infrastructure.Migrations;
 
 namespace Restaurants.Clean.Infrastructure;
 
@@ -16,5 +15,11 @@ public class RestaurantsRepository(RestaurantsDbContext context) : IRestaurantsR
     {
         var Restaurants = await context.Restaurants.Include(q=> q.Address).Include(q=> q.Dishes).ToListAsync();
         return Restaurants;
+    }
+    public async Task<int> CreateRestaurant(Restaurant restaurant)
+    {
+        context.Restaurants.Add(restaurant);
+        await context.SaveChangesAsync();
+        return restaurant.Id;
     }
 }

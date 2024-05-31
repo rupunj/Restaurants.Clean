@@ -8,6 +8,9 @@ public class RestaurantsProfile :Profile
     {
         CreateMap<Restaurant,RestaurantsDto>()
         .ForMember(p=> p.Address ,opt => opt.MapFrom(src => $"{src.Address.City}  {src.Address.Street}  {src.Address.PostalCode}"));
+
+        CreateMap<CreateResturantDto, Restaurant>()
+        .ForMember(p => p.Address, opt => opt.MapFrom(src => new Address { City = src.City, Street = src.Street, PostalCode = src.PostalCode }));
     }
 
 }

@@ -19,4 +19,9 @@ public class RestaurantsService(IRestaurantsRepository restaurantsRepository,IMa
         var restaurantDto = mapper.Map<RestaurantsDto>(restaurant);
         return restaurantDto;
     }
+    public async Task<int> CreateRestaurant(CreateResturantDto createResturantDto)
+    {
+        var restaurant = mapper.Map<Restaurant>(createResturantDto);
+        return await restaurantsRepository.CreateRestaurant(restaurant);
+    }
 }
