@@ -6,5 +6,6 @@ public interface IRestaurantsRepository
     Task<Restaurant> GetRestaurant(int Id);
     Task<int> CreateRestaurant(Restaurant restaurant);
     Task DeleteRestaurant(Restaurant restaurant);
+     Task UpdateRestaurant(Restaurant restaurant);
 
 }

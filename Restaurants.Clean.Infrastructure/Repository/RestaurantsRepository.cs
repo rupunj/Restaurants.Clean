@@ -29,4 +29,10 @@ public class RestaurantsRepository(RestaurantsDbContext context) : IRestaurantsR
         await context.SaveChangesAsync();
        
     }
+    public async Task UpdateRestaurant(Restaurant restaurant)
+    {
+        context.Restaurants.Update(restaurant);
+        await context.SaveChangesAsync();
+
+    }
 }
