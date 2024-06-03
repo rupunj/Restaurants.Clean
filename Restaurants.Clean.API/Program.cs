@@ -13,11 +13,8 @@ builder.Services.AddSwaggerGen();
 builder.Services.InfrastructureServices(builder.Configuration);
 builder.Services.ApplicationService();
 
-builder.Services.AddSerilog((context,configuration) => 
-configuration
-.MinimumLevel.Override("Microsoft",LogEventLevel.Warning)
-.WriteTo.Console());
-
+builder.Host.UseSerilog((context,configuration) => 
+configuration.ReadFrom.Configuration(context.Configuration));
 
 
 var app = builder.Build();
@@ -26,7 +23,7 @@ var scopes = app.Services.CreateScope();
 var seeder = scopes.ServiceProvider.GetRequiredService<IRestaurantsSeeder>();
 
 await seeder.Seed();
-
+app.UseSerilogRequestLogging();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
