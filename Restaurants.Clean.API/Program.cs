@@ -24,6 +24,7 @@ var seeder = scopes.ServiceProvider.GetRequiredService<IRestaurantsSeeder>();
 
 await seeder.Seed();
 app.UseSerilogRequestLogging();
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
