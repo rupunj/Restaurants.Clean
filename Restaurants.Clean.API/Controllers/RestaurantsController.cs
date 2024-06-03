@@ -17,10 +17,6 @@ public class RestaurantsController(IMediator mediator):ControllerBase
     public async Task<ActionResult<RestaurantsDto>> Get([FromRoute] int Id)
     {
         var restaurant = await mediator.Send(new GetRestaurantByIdQuery(Id));
-        if (restaurant == null)
-        {
-            return NotFound();
-        }
         return Ok(restaurant);
     }
     [HttpPost]
@@ -34,11 +30,7 @@ public class RestaurantsController(IMediator mediator):ControllerBase
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> Delete([FromRoute] int Id)
     {
-                    bool result = await mediator.Send(new DeleteRestaurantCommand(Id));
-        if (!result)
-        {
-            return NotFound();
-        }
+        await mediator.Send(new DeleteRestaurantCommand(Id));
         return NoContent();
     }
     
@@ -48,11 +40,7 @@ public class RestaurantsController(IMediator mediator):ControllerBase
 
     public async Task<IActionResult> Delete([FromBody] UpdateRestaurantCommand updateRestaurant)
     {
-       bool result = await mediator.Send(updateRestaurant);
-        if (!result)
-        {
-            return NotFound();
-        }
+        await mediator.Send(updateRestaurant);
         return NoContent();
     }
 

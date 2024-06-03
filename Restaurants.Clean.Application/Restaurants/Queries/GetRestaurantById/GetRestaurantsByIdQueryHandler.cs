@@ -10,6 +10,8 @@ public class GetRestaurantsByIdQueryHandler(IRestaurantsRepository  restaurantsR
     {
         logger.LogInformation($"Get by Id {request.Id}");
         var restaurant = await restaurantsRepository.GetRestaurant(request.Id);
+        if (restaurant == null)
+            throw new NotFoundException(nameof(restaurant),request.Id);
         var restaurantDto = mapper.Map<RestaurantsDto>(restaurant);
         return restaurantDto;
     }

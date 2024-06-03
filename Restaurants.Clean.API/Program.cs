@@ -1,7 +1,6 @@
 using Restaurants.Clean.Infrastructure;
 using Restaurants.Clean.Application;
 using Serilog;
-using Serilog.Events;
 using Restaurants.Clean.API;
 var builder = WebApplication.CreateBuilder(args);
 
