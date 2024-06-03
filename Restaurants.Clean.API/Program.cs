@@ -14,6 +14,7 @@ builder.Services.InfrastructureServices(builder.Configuration);
 builder.Services.ApplicationService();
 
 builder .Services.AddScoped<ExceptionMiddleware>();
+builder .Services.AddScoped<TimeLoggerMiddleware>();
 
 builder.Host.UseSerilog((context,configuration) => 
 configuration.ReadFrom.Configuration(context.Configuration));
@@ -28,6 +29,7 @@ await seeder.Seed();
 app.UseSerilogRequestLogging();
 
 app.UseMiddleware<ExceptionMiddleware>();
+app.UseMiddleware<TimeLoggerMiddleware>();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
