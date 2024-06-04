@@ -2,6 +2,7 @@ using Restaurants.Clean.Infrastructure;
 using Restaurants.Clean.Application;
 using Serilog;
 using Restaurants.Clean.API;
+using Restaurants.Clean.Domain;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -30,6 +31,8 @@ app.UseSerilogRequestLogging();
 
 app.UseMiddleware<ExceptionMiddleware>();
 app.UseMiddleware<TimeLoggerMiddleware>();
+
+app.MapIdentityApi<Users>();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
