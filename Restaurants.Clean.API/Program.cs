@@ -17,6 +17,8 @@ builder.Services.ApplicationService();
 builder .Services.AddScoped<ExceptionMiddleware>();
 builder .Services.AddScoped<TimeLoggerMiddleware>();
 
+builder.Services.AddEndpointsApiExplorer();
+
 builder.Host.UseSerilog((context,configuration) => 
 configuration.ReadFrom.Configuration(context.Configuration));
 

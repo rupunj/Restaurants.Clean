@@ -10,6 +10,8 @@ public static class ServiceColletion
     public static void InfrastructureServices(this IServiceCollection services,IConfiguration configuration)
     {
        services.AddDbContext<RestaurantsDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("ConSettings")).EnableSensitiveDataLogging());  
+
+       services.AddIdentityApiEndpoints<Users>().AddEntityFrameworkStores<RestaurantsDbContext>();
        services.AddScoped<IRestaurantsSeeder, RestaurantsSeeder>();
        services.AddScoped<IRestaurantsRepository, RestaurantsRepository>();
        services.AddScoped<IDishesRepository, DishesRepository>();
