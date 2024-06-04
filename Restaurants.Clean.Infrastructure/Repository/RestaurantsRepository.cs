@@ -7,13 +7,13 @@ public class RestaurantsRepository(RestaurantsDbContext context) : IRestaurantsR
 {
     public async Task<Restaurant> GetRestaurant(int Id)
     {
-       var restaurant = await context.Restaurants.FindAsync(Id);
+       var restaurant = await context.Restaurants.Include(q=> q.Dishes).Where(q=> q.Id == Id).FirstOrDefaultAsync();
        return restaurant;
     }
 
     public async Task<IEnumerable<Restaurant>> GetRestaurants()
     {
-        var Restaurants = await context.Restaurants.Include(q=> q.Address).Include(q=> q.Dishes).ToListAsync();
+        var Restaurants = await context.Restaurants.Include(q=> q.Address).Include(q=> q.Dishes).Where(q=> q.Id ==1) .ToListAsync();
         return Restaurants;
     }
     public async Task<int> CreateRestaurant(Restaurant restaurant)
