@@ -23,7 +23,7 @@ public class ExceptionMiddleware(ILogger<ExceptionMiddleware> logger) : IMiddlew
        {
             logger.LogError(ex,ex.Message);
             context.Response.StatusCode = StatusCodes.Status500InternalServerError;
-            await context.Response.WriteAsJsonAsync("Something Went Wrong");
+            await context.Response.WriteAsJsonAsync("Something Went Wrong : " + ex.Message);
        }
     }
 }

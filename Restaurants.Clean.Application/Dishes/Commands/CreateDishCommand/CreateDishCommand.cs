@@ -1,7 +1,7 @@
 ﻿using MediatR;
 namespace Restaurants.Clean.Application;
 
-public class CreateDishCommand :IRequest
+public class CreateDishCommand :IRequest<int>
 {   
     public int Id { get; set; }
     public string Name { get; set; } =default!;
