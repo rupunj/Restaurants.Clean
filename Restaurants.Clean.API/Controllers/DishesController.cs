@@ -33,5 +33,13 @@ public class DishesController(IMediator mediator) :ControllerBase
         await mediator.Send(createDishCommand);
         return CreatedAtAction(nameof(GetDishes), new { restaurantId });
     }
+    [HttpDelete]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> DeleteDish([FromRoute] int restaurantId)
+    {
+        await mediator.Send(new DeleteDishCommand(restaurantId));
+        return NoContent();
+    }
 
 }

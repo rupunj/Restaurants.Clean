@@ -11,4 +11,9 @@ public class DishesRepository(RestaurantsDbContext dbContext):IDishesRepository
         return await dbContext.SaveChangesAsync();
 
     }
+    public async Task Delete (IEnumerable<Dish> dishes)
+    {
+        dbContext.Dishes.RemoveRange(dishes);
+        await dbContext.SaveChangesAsync();
+    }
 }
