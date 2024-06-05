@@ -2,6 +2,7 @@
 using MediatR;
 using Restaurants.Clean.Application;
 using Microsoft.AspNetCore.Authorization;
+using Restaurants.Clean.Domain;
 
 namespace Restaurants.Clean.API;
 
@@ -28,6 +29,7 @@ public class DishesController(IMediator mediator) :ControllerBase
         return Ok(dish);
     }
     [HttpPost]
+    [Authorize(Roles =UserRoles.Owner)]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> CreateDish([FromRoute] int restaurantId,[FromBody] CreateDishCommand createDishCommand)
