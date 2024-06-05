@@ -1,5 +1,7 @@
-﻿using Microsoft.Identity.Client;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.Identity.Client;
 using Restaurants.Clean.Domain;
+using Restaurants.Clean.Infrastructure.Migrations;
 
 namespace Restaurants.Clean.Infrastructure;
 
@@ -15,6 +17,13 @@ public class RestaurantsSeeder(RestaurantsDbContext dbContext ) :IRestaurantsSee
                 dbContext.Restaurants.AddRange(result);
                 dbContext.SaveChanges();
             }
+            if (!dbContext.Roles.Any())
+            {
+                var roles = GetIdentityRoles();
+                dbContext.Roles.AddRange(roles);
+                await dbContext.SaveChangesAsync();
+            }
+
         }
 
     }
@@ -53,5 +62,26 @@ public class RestaurantsSeeder(RestaurantsDbContext dbContext ) :IRestaurantsSee
         ];
 
         return restaurants;
+    }
+    private IEnumerable<IdentityRole> GetIdentityRoles()
+    {
+        List<IdentityRole> roles = [
+            new()
+            {
+                Name = UserRoles.User,
+                NormalizedName = UserRoles.User.ToUpper()
+            },
+            new()
+            {
+                Name = UserRoles.Owner,
+                NormalizedName = UserRoles.Owner.ToUpper()
+            },
+            new()
+            {
+                Name = UserRoles.Admin,
+                NormalizedName = UserRoles.Admin.ToUpper()
+            }
+        ];
+        return roles;
     }
 }
