@@ -1,14 +1,17 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MediatR;
 using Restaurants.Clean.Application;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Restaurants.Clean.API;
 
 [ApiController]
+[Authorize]
 [Route("api/Restaurans/{restaurantId}/Dishes")]
 public class DishesController(IMediator mediator) :ControllerBase
 {
     [HttpGet]
+    [AllowAnonymous]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult<IEnumerable<DishDto>>> GetDishes([FromRoute] int restaurantId)

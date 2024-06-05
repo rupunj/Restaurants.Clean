@@ -11,6 +11,7 @@ public static class ServiceCollection
         services.AddAutoMapper(AssemblyService);
         services.AddValidatorsFromAssembly(AssemblyService).AddFluentValidationAutoValidation();
         services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(AssemblyService));
+        services.AddScoped<IUserContext,UserContext>();
 
     }
 

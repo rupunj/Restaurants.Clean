@@ -20,7 +20,7 @@ app.UseSerilogRequestLogging();
 app.UseMiddleware<ExceptionMiddleware>();
 app.UseMiddleware<TimeLoggerMiddleware>();
 
-app.MapGroup("api/Identity").MapIdentityApi<Users>();
+app.MapGroup("api/Identity").WithTags("Identity").MapIdentityApi<Users>();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {

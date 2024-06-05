@@ -1,13 +1,16 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Restaurants.Clean.Application;
 
 namespace Restaurants.Clean.API;
 [Route("api/[controller]")]
 [ApiController]
+[Authorize]
 public class RestaurantsController(IMediator mediator):ControllerBase
 {
     [HttpGet]
+    [AllowAnonymous]
     public async  Task<ActionResult<IEnumerable<RestaurantsDto>>> Get()
     {
         var restaurants = await mediator.Send(new GetAllRestaurantsQuery());
