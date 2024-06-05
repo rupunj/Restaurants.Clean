@@ -3,10 +3,33 @@ using Restaurants.Clean.Application;
 using Serilog;
 using Restaurants.Clean.API;
 using Restaurants.Clean.Domain;
+using Microsoft.OpenApi.Models;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllers();
+builder.Services.AddSwaggerGen(c=> 
+{
+    c.AddSecurityDefinition("BearerAuth",new OpenApiSecurityScheme
+    {
+        Type = SecuritySchemeType.Http,
+        Scheme = "Bearer"
+    });
+    c.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "BearerAuth"
+                }
+            },[]
+        }
+
+    });
+});
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -34,7 +57,7 @@ app.UseSerilogRequestLogging();
 app.UseMiddleware<ExceptionMiddleware>();
 app.UseMiddleware<TimeLoggerMiddleware>();
 
-app.MapIdentityApi<Users>();
+app.MapGroup("api/Identity").MapIdentityApi<Users>();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
