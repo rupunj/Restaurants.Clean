@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Restaurants.Clean.Application;
 using Restaurants.Clean.Domain;
+using Restaurants.Clean.Infrastructure;
 
 namespace Restaurants.Clean.API;
 [Route("api/[controller]")]
@@ -11,15 +12,14 @@ namespace Restaurants.Clean.API;
 public class RestaurantsController(IMediator mediator):ControllerBase
 {
     [HttpGet]
-    [AllowAnonymous]
-    [Authorize(Roles =UserRoles.User)]
+    [Authorize(Roles =UserRoles.User,Policy =PolicyNames.AtLeast20)]
     public async  Task<ActionResult<IEnumerable<RestaurantsDto>>> Get()
     {
         var restaurants = await mediator.Send(new GetAllRestaurantsQuery());
         return Ok(restaurants);
     }
     [HttpGet("{Id}")]
-    [Authorize(Policy = "HasNationality")]
+    [Authorize(Policy = PolicyNames.HasNationality)]
     public async Task<ActionResult<RestaurantsDto>> Get([FromRoute] int Id)
     {
         var restaurant = await mediator.Send(new GetRestaurantByIdQuery(Id));

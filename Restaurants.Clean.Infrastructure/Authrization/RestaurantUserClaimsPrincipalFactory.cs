@@ -16,7 +16,7 @@ public class RestaurantUserClaimsPrincipalFactory(UserManager<Users> userManager
         }
         if(user.DateOfBirth != null)
         {
-            id.AddClaim(new Claim(ClaimTypes.DateOfBirth,user.DateOfBirth.Value.ToString("DD/MM/YYYY")));
+            id.AddClaim(new Claim(ClaimTypes.DateOfBirth,user.DateOfBirth.Value.ToString("yyyy-MM-dd")));
         }
         return  new ClaimsPrincipal(id);
     }
