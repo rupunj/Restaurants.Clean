@@ -14,11 +14,16 @@ public static class ServiceColletion
 
        services.AddIdentityApiEndpoints<Users>()
         .AddRoles<IdentityRole>()
+        .AddClaimsPrincipalFactory<RestaurantUserClaimsPrincipalFactory>()
         .AddEntityFrameworkStores<RestaurantsDbContext>();
         
        services.AddScoped<IRestaurantsSeeder, RestaurantsSeeder>();
        services.AddScoped<IRestaurantsRepository, RestaurantsRepository>();
        services.AddScoped<IDishesRepository, DishesRepository>();
+
+       services.AddAuthorizationBuilder()
+       .AddPolicy(PolicyNames.HasNationality,builder => builder.RequireClaim(ClaimTypes.Nationality,"Sri Lankan","Indian"));
+       //.AddPolicy(PolicyNames.AtLeast20,builder => builder.RequireClaim(ClaimTypes.DateOfBirth,DateTime.Now.AddYears(-20).ToString("dd/MM/yyyy")));
 
     }
 
