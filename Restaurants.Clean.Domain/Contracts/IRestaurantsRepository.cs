@@ -7,5 +7,6 @@ public interface IRestaurantsRepository
     Task<int> CreateRestaurant(Restaurant restaurant);
     Task DeleteRestaurant(Restaurant restaurant);
      Task UpdateRestaurant(Restaurant restaurant);
+     Task<IEnumerable<Restaurant>> GetRestaurantbyQuery(string? Querystring);
 
 }

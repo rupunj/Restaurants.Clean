@@ -9,7 +9,7 @@ public class GetAllRestaurantsQueryHandler(IRestaurantsRepository restaurantsRep
     public async Task<IEnumerable<RestaurantsDto>> Handle(GetAllRestaurantsQuery request, CancellationToken cancellationToken)
     {
         logger.LogInformation("Getting all restaurants");
-        var Restaurants = await restaurantsRepository.GetRestaurants();
+        var Restaurants = await restaurantsRepository.GetRestaurantbyQuery(request.SearchQuery);
         var RestaurantsDto = mapper.Map<IEnumerable<RestaurantsDto>>(Restaurants);
         return RestaurantsDto;
     }

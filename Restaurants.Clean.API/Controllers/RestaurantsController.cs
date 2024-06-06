@@ -12,10 +12,11 @@ namespace Restaurants.Clean.API;
 public class RestaurantsController(IMediator mediator):ControllerBase
 {
     [HttpGet]
-    [Authorize(Roles =UserRoles.User,Policy =PolicyNames.AtLeast20)]
-    public async  Task<ActionResult<IEnumerable<RestaurantsDto>>> Get()
+    [AllowAnonymous]
+    // [Authorize(Roles =UserRoles.User,Policy =PolicyNames.AtLeast20)]
+    public async  Task<ActionResult<IEnumerable<RestaurantsDto>>> Get([FromQuery] GetAllRestaurantsQuery getAllRestaurantsQuery)
     {
-        var restaurants = await mediator.Send(new GetAllRestaurantsQuery());
+        var restaurants = await mediator.Send(getAllRestaurantsQuery);
         return Ok(restaurants);
     }
     [HttpGet("{Id}")]
