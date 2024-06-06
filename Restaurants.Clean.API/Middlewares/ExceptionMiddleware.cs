@@ -19,6 +19,12 @@ public class ExceptionMiddleware(ILogger<ExceptionMiddleware> logger) : IMiddlew
             
         
        }
+       catch(ForbidException forbidException)
+       {
+           logger.LogError(forbidException,forbidException.Message);
+           context.Response.StatusCode = StatusCodes.Status403Forbidden;
+           await context.Response.WriteAsync(forbidException.Message);
+       }
        catch (Exception ex)
        {
             logger.LogError(ex,ex.Message);

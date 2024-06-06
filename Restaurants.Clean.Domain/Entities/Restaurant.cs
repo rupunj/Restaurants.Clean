@@ -11,5 +11,7 @@ public class Restaurant
     public string? ContactPhone { get; set; }
     public Address Address { get; set; }
     public List<Dish> Dishes { get; set; } = new List<Dish>();
+    public Users Owner { get; set; } =  default!;
+    public string OwnerID { get; set; }
 
 }

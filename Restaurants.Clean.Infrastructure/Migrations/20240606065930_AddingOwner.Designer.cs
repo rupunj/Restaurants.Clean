@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Restaurants.Clean.Infrastructure;
 
@@ -11,9 +12,11 @@ using Restaurants.Clean.Infrastructure;
 namespace Restaurants.Clean.Infrastructure.Migrations
 {
     [DbContext(typeof(RestaurantsDbContext))]
-    partial class RestaurantsDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240606065930_AddingOwner")]
+    partial class AddingOwner
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -244,12 +247,9 @@ namespace Restaurants.Clean.Infrastructure.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("OwnerID")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("OwnerID");
 
                     b.ToTable("Restaurants");
                 });
@@ -400,26 +400,10 @@ namespace Restaurants.Clean.Infrastructure.Migrations
 
             modelBuilder.Entity("Restaurants.Clean.Domain.Restaurant", b =>
                 {
-                    b.HasOne("Restaurants.Clean.Domain.Users", "Owner")
-                        .WithMany("OwnedRestaurant")
-                        .HasForeignKey("OwnerID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Owner");
-                });
-
-            modelBuilder.Entity("Restaurants.Clean.Domain.Restaurant", b =>
-                {
                     b.Navigation("Address")
                         .IsRequired();
 
                     b.Navigation("Dishes");
-                });
-
-            modelBuilder.Entity("Restaurants.Clean.Domain.Users", b =>
-                {
-                    b.Navigation("OwnedRestaurant");
                 });
 #pragma warning restore 612, 618
         }

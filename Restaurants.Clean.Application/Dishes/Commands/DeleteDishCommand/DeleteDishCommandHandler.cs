@@ -2,7 +2,7 @@ using MediatR;
 using Restaurants.Clean.Domain;
 namespace Restaurants.Clean.Application;
 
-public class DeleteDishCommandHandler(IRestaurantsRepository restaurantsRepository,IDishesRepository dishesRepository) : IRequestHandler<DeleteDishCommand>
+public class DeleteDishCommandHandler(IRestaurantsRepository restaurantsRepository,IDishesRepository dishesRepository,IRestaurantAuthorizationService restaurantAuthorizationService) : IRequestHandler<DeleteDishCommand>
 {
     public async Task Handle(DeleteDishCommand request, CancellationToken cancellationToken)
     {
@@ -15,6 +15,10 @@ public class DeleteDishCommandHandler(IRestaurantsRepository restaurantsReposito
         {
             throw new NotFoundException(nameof(dishes),request.restaurantId);
             
+        }
+        if (!restaurantAuthorizationService.Authorization(restaurant,ResourceOperation.Delete))
+        {
+            throw new ForbidException(); 
         }
         await dishesRepository.Delete(dishes);
     }
