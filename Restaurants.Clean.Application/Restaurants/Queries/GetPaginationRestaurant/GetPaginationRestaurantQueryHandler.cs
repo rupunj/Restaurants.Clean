@@ -7,7 +7,7 @@ public class GetPaginationRestaurantQueryHandler(IRestaurantsRepository restaura
 {
     public async Task<PageResult<RestaurantsDto>> Handle(GetPaginationRestaurantQuery request, CancellationToken cancellationToken)
     {
-        var (restaurant,TotalCount )= await restaurantsRepository.GetRestaurantPagination(request.SearchQuery,request.PageNumber,request.PageSize);
+        var (restaurant,TotalCount )= await restaurantsRepository.GetRestaurantPagination(request.SearchQuery,request.PageNumber,request.PageSize,request.SortBy,request.SortDirection);
 
         var restaurantsDto = mapper.Map<IEnumerable<RestaurantsDto>>(restaurant);
         return new PageResult<RestaurantsDto>(restaurantsDto,TotalCount,request.PageSize,request.PageNumber);
