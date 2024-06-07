@@ -8,5 +8,6 @@ public interface IRestaurantsRepository
     Task DeleteRestaurant(Restaurant restaurant);
      Task UpdateRestaurant(Restaurant restaurant);
      Task<IEnumerable<Restaurant>> GetRestaurantbyQuery(string? Querystring);
+     Task<(IEnumerable<Restaurant>,int TotalCount)> GetRestaurantPagination(string? Querystring,int PageNumber,int PageSize);
 
 }

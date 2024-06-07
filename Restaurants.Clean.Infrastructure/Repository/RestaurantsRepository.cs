@@ -46,4 +46,18 @@ public class RestaurantsRepository(RestaurantsDbContext context) : IRestaurantsR
         await context.SaveChangesAsync();
 
     }
+    public async Task<(IEnumerable<Restaurant>,int TotalCount)> GetRestaurantPagination(string? Querystring,int PageNumber,int PageSize)
+    {
+        string searchquery = Querystring?.ToLower();
+        var baseQuery = context.Restaurants.Include(q=> q.Address).Include(q=> q.Dishes)
+        .Where(q=> searchquery ==null || (q.Name.ToLower().Contains(searchquery) || q.Discription.ToLower().Contains(searchquery))); 
+
+        int TotalCount = await baseQuery.CountAsync();
+
+        var Restaurants = await baseQuery
+        .Skip((PageNumber-1)*PageSize)
+        .Take(PageSize)
+        .ToListAsync();
+        return (Restaurants , TotalCount);
+    }
 }

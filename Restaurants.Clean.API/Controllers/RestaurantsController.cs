@@ -19,11 +19,11 @@ public class RestaurantsController(IMediator mediator):ControllerBase
         var restaurants = await mediator.Send(getAllRestaurantsQuery);
         return Ok(restaurants);
     }
-    [HttpGet("{Id}")]
-    [Authorize(Policy = PolicyNames.HasNationality)]
-    public async Task<ActionResult<RestaurantsDto>> Get([FromRoute] int Id)
+    [HttpGet("Pagination")]
+    [AllowAnonymous]
+    public async Task<ActionResult<PageResult<RestaurantsDto>>> Pagination([FromQuery]GetPaginationRestaurantQuery getPaginationRestaurantQuery)
     {
-        var restaurant = await mediator.Send(new GetRestaurantByIdQuery(Id));
+        var restaurant = await mediator.Send(getPaginationRestaurantQuery);
         return Ok(restaurant);
     }
     [HttpPost]
