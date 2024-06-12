@@ -14,7 +14,6 @@ public class RestaurantsRepository(RestaurantsDbContext context) : IRestaurantsR
 
     public async Task<IEnumerable<Restaurant>> GetRestaurants()
     {
-        // string searchquery = searchTerm.ToLower();
         var Restaurants = await context.Restaurants.Include(q=> q.Address).Include(q=> q.Dishes)
         .ToListAsync();
         return Restaurants;
