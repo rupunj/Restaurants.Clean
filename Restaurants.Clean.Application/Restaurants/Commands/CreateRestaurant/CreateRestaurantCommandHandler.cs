@@ -4,7 +4,7 @@ using Restaurants.Clean.Domain;
 namespace Restaurants.Clean.Application;
 
 public class CreateRestaurantCommandHandler(IMapper mapper,IRestaurantsRepository restaurantsRepository,IUserContext userContext
-,IRestaurantAuthorizationService restaurantAuthorizationService) : IRequestHandler<CreateRestaurantCommand, int>
+) : IRequestHandler<CreateRestaurantCommand, int>
 {
 
     public  async Task<int> Handle(CreateRestaurantCommand request, CancellationToken cancellationToken)

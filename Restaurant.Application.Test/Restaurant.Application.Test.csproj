@@ -24,6 +24,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Restaurants.Clean.Application\Restaurants.Clean.Application.csproj" />
+    <ProjectReference Include="..\Restaurants.Clean.Domain\Restaurants.Clean.Domain.csproj" />
   </ItemGroup>
 
 </Project>
