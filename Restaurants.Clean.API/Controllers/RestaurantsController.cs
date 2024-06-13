@@ -11,6 +11,13 @@ namespace Restaurants.Clean.API;
 [Authorize]
 public class RestaurantsController(IMediator mediator):ControllerBase
 {
+    [HttpGet("{Id}")]
+    [Authorize(Roles =UserRoles.Owner,Policy =PolicyNames.HasNationality)]
+    public async Task<ActionResult<RestaurantsDto>> GetById([FromRoute] GetRestaurantByIdQuery getRestaurantById)
+    {
+        var restaurant = await mediator.Send(getRestaurantById);
+        return Ok(restaurant);
+    }
     [HttpGet]
     [AllowAnonymous]
     // [Authorize(Roles =UserRoles.User,Policy =PolicyNames.AtLeast20)]
