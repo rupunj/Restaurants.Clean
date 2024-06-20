@@ -23,7 +23,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Restaurants.Clean.Infrastructure\Restaurants.Clean.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\src\Restaurants.Clean.Infrastructure\Restaurants.Clean.Infrastructure.csproj" />
   </ItemGroup>
 
+ 
 </Project>
