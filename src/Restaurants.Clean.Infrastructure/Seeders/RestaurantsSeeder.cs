@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Identity.Client;
 using Restaurants.Clean.Domain;
 using Restaurants.Clean.Infrastructure.Migrations;
@@ -9,6 +10,10 @@ public class RestaurantsSeeder(RestaurantsDbContext dbContext ) :IRestaurantsSee
 {
     public async Task Seed()
     {
+        if (dbContext.Database.GetPendingMigrations().Any())
+        {
+            await dbContext.Database.MigrateAsync();
+        }
         if ( await dbContext.Database.CanConnectAsync())
         {
             if (!dbContext.Restaurants.Any())
@@ -30,6 +35,10 @@ public class RestaurantsSeeder(RestaurantsDbContext dbContext ) :IRestaurantsSee
 
     private IEnumerable<Restaurant> getRestaurants()
     {
+        Users owner = new Users()
+        {
+            Email = "seeder@gmail.com"
+        };
         List<Restaurant> restaurants = [
             new()
             {
@@ -56,7 +65,9 @@ public class RestaurantsSeeder(RestaurantsDbContext dbContext ) :IRestaurantsSee
                         Price = 100,
                         
                     }
-                ]
+                ],
+                Owner = owner
+                
                 
             }
         ];

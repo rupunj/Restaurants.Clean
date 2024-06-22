@@ -1,3 +1,4 @@
 {
-    "appService.deploySubpath": "publish"
+    "appService.deploySubpath": "Publish",
+    "appService.defaultWebAppToDeploy": "/subscriptions/6b36be08-e787-4588-9e1f-84754aaaf4a7/resourceGroups/restaurant-api-dev-ru_group/providers/Microsoft.Web/sites/restaurant-api-dev-ru"
 }
