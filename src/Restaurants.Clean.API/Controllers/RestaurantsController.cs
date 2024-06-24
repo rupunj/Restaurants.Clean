@@ -12,7 +12,7 @@ namespace Restaurants.Clean.API;
 public class RestaurantsController(IMediator mediator):ControllerBase
 {
     [HttpGet("{Id}")]
-    [Authorize(Roles =UserRoles.Owner,Policy =PolicyNames.HasNationality)]
+    [Authorize(Roles =UserRoles.Owner)]
     public async Task<ActionResult<RestaurantsDto>> GetById([FromRoute] GetRestaurantByIdQuery getRestaurantById)
     {
         var restaurant = await mediator.Send(getRestaurantById);

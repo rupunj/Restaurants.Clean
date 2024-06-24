@@ -11,5 +11,6 @@ public class RestaurantsDto
     public string? ContactPhone { get; set; }
     public string Address { get; set; }
     public List<DishDto> Dishes { get; set; } = new List<DishDto>();
+    public string? LogoUrl { get; set; }
 
 }

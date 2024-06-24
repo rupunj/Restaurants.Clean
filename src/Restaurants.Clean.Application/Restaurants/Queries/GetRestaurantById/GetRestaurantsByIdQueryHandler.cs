@@ -4,7 +4,9 @@ using Microsoft.Extensions.Logging;
 using Restaurants.Clean.Domain;
 namespace Restaurants.Clean.Application;
 
-public class GetRestaurantsByIdQueryHandler(IRestaurantsRepository  restaurantsRepository,IMapper mapper,ILogger<GetRestaurantsByIdQueryHandler> logger) : IRequestHandler<GetRestaurantByIdQuery, RestaurantsDto>
+public class GetRestaurantsByIdQueryHandler(IRestaurantsRepository  restaurantsRepository,
+IMapper mapper,ILogger<GetRestaurantsByIdQueryHandler> logger,
+IBlobStorageService blobStorageService) : IRequestHandler<GetRestaurantByIdQuery, RestaurantsDto>
 {
     public async Task<RestaurantsDto> Handle(GetRestaurantByIdQuery request, CancellationToken cancellationToken)
     {
@@ -13,6 +15,7 @@ public class GetRestaurantsByIdQueryHandler(IRestaurantsRepository  restaurantsR
         if (restaurant == null)
             throw new NotFoundException(nameof(restaurant),request.Id);
         var restaurantDto = mapper.Map<RestaurantsDto>(restaurant);
+        restaurantDto.LogoUrl = blobStorageService.GetBlobSasUrl(restaurant.Logo);
         return restaurantDto;
     }
 }
