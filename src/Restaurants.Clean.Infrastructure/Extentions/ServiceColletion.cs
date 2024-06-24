@@ -31,6 +31,9 @@ public static class ServiceColletion
        services.AddScoped<IAuthorizationHandler,CreateMultipleRestaurantRequiermentHandler>();
        services.AddScoped<IRestaurantAuthorizationService,RestaurantAuthorizationService>();
        //.AddPolicy(PolicyNames.AtLeast20,builder => builder.RequireClaim(ClaimTypes.DateOfBirth,DateTime.Now.AddYears(-20).ToString("dd/MM/yyyy")));
+       services.Configure<BlobStorageSettings>(configuration.GetSection("BlobStorage"));
+       services.AddScoped<IBlobStorageService,BlobStorageService>();
+       
 
     }
 

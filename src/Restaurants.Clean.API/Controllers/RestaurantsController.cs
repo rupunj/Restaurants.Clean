@@ -55,11 +55,25 @@ public class RestaurantsController(IMediator mediator):ControllerBase
     [HttpPut("{Id}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    
     public async Task<IActionResult> Delete([FromBody] UpdateRestaurantCommand updateRestaurant)
     {
         await mediator.Send(updateRestaurant);
         return NoContent();
+    }
+
+    [HttpPost("{Id}/logo")]
+    public async Task<IActionResult> UploadLogo([FromRoute] int Id, IFormFile file)
+    {
+        using var stram = file.OpenReadStream();
+        var command = new UploadRestaurantLogogCommand()
+        {
+            FileName = file.FileName,
+            File = stram,
+            restaurantId = Id
+        };
+        await mediator.Send(command);
+        return NoContent();
+
     }
 
 }

@@ -239,6 +239,9 @@ namespace Restaurants.Clean.Infrastructure.Migrations
                     b.Property<bool>("HasDelivery")
                         .HasColumnType("bit");
 
+                    b.Property<string>("Logo")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
