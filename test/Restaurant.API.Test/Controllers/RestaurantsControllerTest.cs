@@ -8,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Moq;
 using Restaurants.Clean.Domain;
+using Restaurants.Clean.Infrastructure;
 
 namespace Restaurant.API.Test;
 
@@ -15,6 +16,7 @@ public class RestaurantsControllerTest : IClassFixture<WebApplicationFactory<Pro
 {
     private readonly WebApplicationFactory<Programe> _factory;
     private readonly Mock<IRestaurantsRepository> _restaurantRepository =new();
+    private readonly Mock<IRestaurantsSeeder> _restaurantSeeder =new();
 
     public RestaurantsControllerTest(WebApplicationFactory<Programe> factory)
     {
@@ -23,6 +25,7 @@ public class RestaurantsControllerTest : IClassFixture<WebApplicationFactory<Pro
             {
                 service.AddSingleton<IPolicyEvaluator,FakePolicyEvaluator>();
                 service.Replace(ServiceDescriptor.Scoped(typeof(IRestaurantsRepository),_=> _restaurantRepository.Object));
+                service.Replace(ServiceDescriptor.Scoped(typeof(IRestaurantsSeeder),_=> _restaurantSeeder.Object));
             })
         );
     }
